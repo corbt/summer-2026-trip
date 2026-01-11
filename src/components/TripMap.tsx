@@ -59,7 +59,7 @@ export default function TripMap() {
   const [MapComponents, setMapComponents] = useState<{
     MapContainer: React.ComponentType<React.PropsWithChildren<{ center: [number, number]; zoom: number; className?: string; scrollWheelZoom?: boolean }>>;
     TileLayer: React.ComponentType<{ attribution: string; url: string }>;
-    Marker: React.ComponentType<React.PropsWithChildren<{ position: [number, number]; icon?: L.Icon }>>;
+    Marker: React.ComponentType<React.PropsWithChildren<{ position: [number, number]; icon?: L.Icon | L.DivIcon }>>;
     Popup: React.ComponentType<React.PropsWithChildren>;
     Polyline: React.ComponentType<{ positions: [number, number][]; pathOptions?: { color?: string; weight?: number; dashArray?: string } }>;
   } | null>(null);
