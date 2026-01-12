@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ImageCard from '@/components/ImageCard';
 import ActivityCard from '@/components/ActivityCard';
@@ -109,8 +112,109 @@ const lodgingOptions = [
 ];
 
 export default function DinglePage() {
+  const [floatingSheep, setFloatingSheep] = useState<number[]>([]);
+  const [showDolphin, setShowDolphin] = useState(false);
+  const [iceCreamRain, setIceCreamRain] = useState(false);
+  const [pageShake, setPageShake] = useState(false);
+
+  const handleCarClick = () => {
+    setPageShake(true);
+    setTimeout(() => setPageShake(false), 1000);
+  };
+
+  const handleSheepClick = () => {
+    setFloatingSheep(Array(30).fill(0).map((_, i) => i));
+    setTimeout(() => setFloatingSheep([]), 4000);
+  };
+
+  const handleIceCreamClick = () => {
+    setIceCreamRain(true);
+    setTimeout(() => setIceCreamRain(false), 3000);
+  };
+
+  const handleMusicClick = () => {
+    setShowDolphin(true);
+  };
+
   return (
-    <div>
+    <div className={pageShake ? 'animate-pulse' : ''} style={pageShake ? { animation: 'shake 0.5s infinite' } : {}}>
+      <style>{`
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-10px) rotate(-1deg); }
+          75% { transform: translateX(10px) rotate(1deg); }
+        }
+        @keyframes float-up {
+          0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes rain {
+          0% { transform: translateY(-50px); }
+          100% { transform: translateY(100vh); }
+        }
+      `}</style>
+
+      {/* Floating Sheep */}
+      {floatingSheep.map((_, i) => (
+        <div
+          key={i}
+          className="fixed text-5xl pointer-events-none z-50"
+          style={{
+            left: `${Math.random() * 100}%`,
+            bottom: '-50px',
+            animation: `float-up ${3 + Math.random() * 2}s linear forwards`,
+            animationDelay: `${Math.random() * 0.5}s`,
+          }}
+        >
+          🐑
+        </div>
+      ))}
+
+      {/* Ice Cream Rain */}
+      {iceCreamRain && (
+        <>
+          {Array(40).fill(0).map((_, i) => (
+            <div
+              key={i}
+              className="fixed text-4xl pointer-events-none z-50"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-50px',
+                animation: `rain ${1.5 + Math.random()}s linear forwards`,
+                animationDelay: `${Math.random() * 0.5}s`,
+              }}
+            >
+              🍦
+            </div>
+          ))}
+        </>
+      )}
+
+      {/* Dolphin Popup */}
+      {showDolphin && (
+        <div className="fixed inset-0 bg-blue-900/80 flex items-center justify-center z-50 p-4" onClick={() => setShowDolphin(false)}>
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=600&q=80"
+              alt="Dolphin!"
+              className="rounded-2xl max-w-md"
+              style={{ animation: 'pop 0.5s ease-out' }}
+            />
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-6xl animate-bounce">🐬</div>
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white font-bold px-6 py-3 rounded-full text-xl">
+              FUNGIE THE DOLPHIN!
+            </div>
+            <style>{`
+              @keyframes pop {
+                0% { transform: scale(0) rotate(-180deg); }
+                100% { transform: scale(1) rotate(0deg); }
+              }
+            `}</style>
+          </div>
+        </div>
+      )}
+
       <HeroSection
         title="Dingle Peninsula"
         subtitle="Dolphins, ancient ruins, and the most colorful town in Ireland"
@@ -145,6 +249,17 @@ export default function DinglePage() {
                 <span className="bg-amber-100 text-amber-700 px-4 py-2 rounded-full text-sm font-medium">
                   414 homes available
                 </span>
+                <a
+                  href="https://www.google.com/maps/place/Dingle+Peninsula,+Ireland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors inline-flex items-center gap-1"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                  Map
+                </a>
               </div>
             </div>
             <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
@@ -291,19 +406,31 @@ export default function DinglePage() {
           </h3>
           <ul className="space-y-3 text-gray-600">
             <li className="flex gap-3">
-              <span>🚗</span>
+              <span
+                onClick={handleCarClick}
+                className="cursor-pointer hover:scale-125 transition-transform select-none"
+              >🚗</span>
               <span>Slea Head Drive is only 30 minutes but you&apos;ll want half a day to stop at all the viewpoints</span>
             </li>
             <li className="flex gap-3">
-              <span>🐑</span>
+              <span
+                onClick={handleSheepClick}
+                className="cursor-pointer hover:scale-125 transition-transform select-none"
+              >🐑</span>
               <span>Book the sheepdog demo in advance - it&apos;s one of the most popular activities</span>
             </li>
             <li className="flex gap-3">
-              <span>🍦</span>
+              <span
+                onClick={handleIceCreamClick}
+                className="cursor-pointer hover:scale-125 transition-transform select-none"
+              >🍦</span>
               <span>Murphy&apos;s Dingle Sea Salt ice cream is a must - the kids will beg for seconds</span>
             </li>
             <li className="flex gap-3">
-              <span>🎵</span>
+              <span
+                onClick={handleMusicClick}
+                className="cursor-pointer hover:scale-125 transition-transform select-none"
+              >🎵</span>
               <span>Hit a pub around 7pm for live traditional music - kids welcome!</span>
             </li>
           </ul>

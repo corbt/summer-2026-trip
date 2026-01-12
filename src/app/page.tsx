@@ -2,6 +2,7 @@ import Link from 'next/link';
 import HeroSection from '@/components/HeroSection';
 import Timeline from '@/components/Timeline';
 import TripMap from '@/components/TripMap';
+import TripCalendar from '@/components/TripCalendar';
 
 const timelineItems = [
   {
@@ -58,6 +59,7 @@ const destinations = [
     subtitle: 'Our gateway to adventure',
     image: 'https://images.unsplash.com/photo-1549918864-48ac978761a4?w=800&q=80',
     duration: '2 nights',
+    mapUrl: 'https://www.google.com/maps/place/Dublin,+Ireland',
   },
   {
     href: '/barcelona',
@@ -65,13 +67,15 @@ const destinations = [
     subtitle: 'Sun, sea, and family',
     image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=80',
     duration: '2 weeks',
+    mapUrl: 'https://www.google.com/maps/place/Barcelona,+Spain',
   },
   {
     href: '/dingle',
     title: 'Dingle Peninsula',
     subtitle: 'Ireland\'s magical southwest',
-    image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=800&q=80',
+    image: '/images/dingle/slea-head.jpg',
     duration: '1 week',
+    mapUrl: 'https://www.google.com/maps/place/Dingle+Peninsula,+Ireland',
   },
   {
     href: '/connemara',
@@ -79,6 +83,7 @@ const destinations = [
     subtitle: 'Wild Atlantic beauty',
     image: 'https://images.unsplash.com/photo-1570426606723-9c8991639efd?w=800&q=80',
     duration: '1 week',
+    mapUrl: 'https://www.google.com/maps/place/Connemara,+Ireland',
   },
 ];
 
@@ -123,34 +128,50 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Our Destinations</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {destinations.map((dest) => (
-              <Link
-                key={dest.href}
-                href={dest.href}
-                className="image-card group relative h-64 rounded-2xl overflow-hidden"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={dest.image}
-                  alt={dest.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="hero-gradient absolute inset-0" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div key={dest.href} className="image-card group relative h-64 rounded-2xl overflow-hidden">
+                <Link href={dest.href} className="absolute inset-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={dest.image}
+                    alt={dest.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="hero-gradient absolute inset-0" />
+                </Link>
+                <a
+                  href={dest.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-4 right-4 bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-md transition-colors z-10"
+                  title={`View ${dest.title} on Google Maps`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                </a>
+                <div className="absolute bottom-0 left-0 right-0 p-6 pointer-events-none">
                   <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-sm px-3 py-1 rounded-full mb-2">
                     {dest.duration}
                   </span>
                   <h3 className="text-2xl font-bold text-white">{dest.title}</h3>
                   <p className="text-white/80">{dest.subtitle}</p>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* Interactive Map */}
+        {/* Interactive Map & Calendar */}
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Our Route</h2>
-          <TripMap />
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">Our Route & Schedule</h2>
+          <div className="grid lg:grid-cols-2 gap-6">
+            <div>
+              <TripMap />
+            </div>
+            <div>
+              <TripCalendar />
+            </div>
+          </div>
         </section>
 
         {/* Timeline */}
@@ -177,17 +198,17 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500">
               <div className="text-sm text-gray-500 mb-1">Budget Option</div>
-              <div className="text-3xl font-bold text-gray-900">$11,821</div>
+              <div className="text-3xl font-bold text-gray-900">$12,066</div>
               <div className="text-sm text-green-600 mt-2">Within budget</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-amber-500">
               <div className="text-sm text-gray-500 mb-1">Recommended</div>
-              <div className="text-3xl font-bold text-gray-900">$13,721</div>
+              <div className="text-3xl font-bold text-gray-900">$13,866</div>
               <div className="text-sm text-amber-600 mt-2">Best value</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple-500">
               <div className="text-sm text-gray-500 mb-1">Premium</div>
-              <div className="text-3xl font-bold text-gray-900">$17,421</div>
+              <div className="text-3xl font-bold text-gray-900">$17,466</div>
               <div className="text-sm text-purple-600 mt-2">Top properties</div>
             </div>
           </div>
@@ -198,18 +219,28 @@ export default function Home() {
           <div className="flex items-start gap-4">
             <div className="text-4xl">✅</div>
             <div>
-              <h3 className="font-bold text-lg text-green-900 mb-2">Flights Confirmed - $5,382</h3>
+              <h3 className="font-bold text-lg text-green-900 mb-2">Flights - $5,382</h3>
               <p className="text-green-800 mb-4">
-                Prices locked in for all 6 passengers. Direct Seattle to Dublin on Aer Lingus,
+                Prices as of January 2026 for all 6 passengers. Direct Seattle to Dublin on Aer Lingus,
                 plus easy Dublin-Barcelona hops on Ryanair.
               </p>
               <div className="flex flex-wrap gap-3">
-                <span className="bg-white/80 px-3 py-1 rounded-full text-sm text-green-700">
-                  SEA → DUB: $695/person
-                </span>
-                <span className="bg-white/80 px-3 py-1 rounded-full text-sm text-green-700">
-                  DUB ↔ BCN: $202/person
-                </span>
+                <a
+                  href="https://www.google.com/travel/flights/search?tfs=CBwQAhojEgoyMDI2LTA2LTIxagwIAhIIL20vMGQ5anJyBwgBEgNEVUIaIxIKMjAyNi0wNy0yMWoHCAESA0RVQnIMCAISCC9tLzBkOWpyQAFAAUACQAJAAkAESAFwAYIBCwj___________8BmAEB"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/80 px-3 py-1 rounded-full text-sm text-green-700 hover:bg-white transition-colors"
+                >
+                  SEA ↔ DUB: $4,169 &rarr;
+                </a>
+                <a
+                  href="https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTA2LTIzagcIARIDRFVCcgcIARIDQkNOGh4SCjIwMjYtMDctMDZqBwgBEgNCQ05yBwgBEgNEVUJAAUABQAJAAkACQARIAXABggELCP___________wGYAQE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/80 px-3 py-1 rounded-full text-sm text-green-700 hover:bg-white transition-colors"
+                >
+                  DUB ↔ BCN: $1,213 &rarr;
+                </a>
               </div>
             </div>
           </div>
