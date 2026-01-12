@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ImageCard from '@/components/ImageCard';
 import ActivityCard from '@/components/ActivityCard';
@@ -112,114 +109,8 @@ const lodgingOptions = [
 ];
 
 export default function ConnemaraPage() {
-  const [showBusker, setShowBusker] = useState(false);
-  const [fishSwarm, setFishSwarm] = useState(false);
-  const [showPony, setShowPony] = useState(false);
-  const [ferrisMode, setFerrisMode] = useState(false);
-  const [rainbowExplosion, setRainbowExplosion] = useState(false);
-
-  const handleTheaterClick = () => { setShowBusker(true); };
-  const handleFishClick = () => { setFishSwarm(true); setTimeout(() => setFishSwarm(false), 4000); };
-  const handleCastleClick = () => { setShowPony(true); };
-  const handleFerrisClick = () => { setFerrisMode(true); setTimeout(() => setFerrisMode(false), 3000); };
-  const handleHomeClick = () => { setRainbowExplosion(true); setTimeout(() => setRainbowExplosion(false), 4000); };
-
   return (
-    <div className={ferrisMode ? 'animate-spin' : ''} style={ferrisMode ? { animationDuration: '3s' } : {}}>
-      <style>{`
-        @keyframes swim {
-          0% { transform: translateX(-100px) scaleX(1); }
-          49% { transform: translateX(calc(100vw + 100px)) scaleX(1); }
-          50% { transform: translateX(calc(100vw + 100px)) scaleX(-1); }
-          100% { transform: translateX(-100px) scaleX(-1); }
-        }
-        @keyframes rainbow-burst {
-          0% { transform: scale(0) rotate(0deg); opacity: 1; }
-          100% { transform: scale(3) rotate(360deg); opacity: 0; }
-        }
-      `}</style>
-
-      {/* Fish Swarm */}
-      {fishSwarm && (
-        <>
-          {Array(15).fill(0).map((_, i) => (
-            <div
-              key={i}
-              className="fixed text-5xl pointer-events-none z-50"
-              style={{
-                left: '-100px',
-                top: `${10 + Math.random() * 80}%`,
-                animation: `swim ${3 + Math.random() * 2}s linear infinite`,
-                animationDelay: `${Math.random() * 0.5}s`,
-              }}
-            >
-              {['🐠', '🐟', '🦈', '🐙', '🦑'][Math.floor(Math.random() * 5)]}
-            </div>
-          ))}
-        </>
-      )}
-
-      {/* Rainbow Explosion */}
-      {rainbowExplosion && (
-        <>
-          {Array(30).fill(0).map((_, i) => (
-            <div
-              key={i}
-              className="fixed text-6xl pointer-events-none z-50"
-              style={{
-                left: '50%',
-                top: '50%',
-                animation: `rainbow-burst ${1.5 + Math.random()}s ease-out forwards`,
-                animationDelay: `${Math.random() * 0.3}s`,
-                transform: `rotate(${i * 12}deg)`,
-              }}
-            >
-              {['🌈', '✨', '⭐', '🎉', '🏠', '✈️'][Math.floor(Math.random() * 6)]}
-            </div>
-          ))}
-          <div className="fixed inset-0 flex items-center justify-center z-40 pointer-events-none">
-            <div className="text-9xl animate-bounce">🏠</div>
-          </div>
-        </>
-      )}
-
-      {/* Busker Popup */}
-      {showBusker && (
-        <div className="fixed inset-0 bg-purple-900/80 flex items-center justify-center z-50 p-4" onClick={() => setShowBusker(false)}>
-          <div className="text-center" onClick={(e) => e.stopPropagation()}>
-            <div className="text-9xl mb-4 animate-bounce">🎸</div>
-            <div className="flex justify-center gap-2 text-5xl mb-4">
-              <span className="animate-pulse" style={{ animationDelay: '0s' }}>🎵</span>
-              <span className="animate-pulse" style={{ animationDelay: '0.2s' }}>🎶</span>
-              <span className="animate-pulse" style={{ animationDelay: '0.4s' }}>🎵</span>
-              <span className="animate-pulse" style={{ animationDelay: '0.6s' }}>🎶</span>
-            </div>
-            <div className="bg-yellow-400 text-purple-900 font-bold px-8 py-4 rounded-full text-2xl">
-              GALWAY STREET MUSIC!
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Pony Popup */}
-      {showPony && (
-        <div className="fixed inset-0 bg-green-900/80 flex items-center justify-center z-50 p-4" onClick={() => setShowPony(false)}>
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80"
-              alt="Connemara pony!"
-              className="rounded-2xl max-w-md"
-              style={{ animation: 'pop 0.5s ease-out' }}
-            />
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-400 text-black font-bold px-6 py-2 rounded-full text-xl animate-bounce">
-              CONNEMARA PONY!
-            </div>
-            <style>{`@keyframes pop { 0% { transform: scale(0) rotate(-180deg); } 100% { transform: scale(1) rotate(0deg); } }`}</style>
-          </div>
-        </div>
-      )}
-
+    <div>
       <HeroSection
         title="Connemara"
         subtitle="Wild Atlantic beauty - ponies, castles, and untamed landscapes"
@@ -356,31 +247,19 @@ export default function ConnemaraPage() {
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex gap-2">
-                    <span
-                      onClick={handleTheaterClick}
-                      className="cursor-pointer hover:scale-125 transition-transform select-none"
-                    >🎭</span>
+                    <span>🎭</span>
                     <span>Street performers on Quay Street</span>
                   </li>
                   <li className="flex gap-2">
-                    <span
-                      onClick={handleFishClick}
-                      className="cursor-pointer hover:scale-125 transition-transform select-none"
-                    >🐠</span>
+                    <span>🐠</span>
                     <span>Galway Atlantaquaria (aquarium)</span>
                   </li>
                   <li className="flex gap-2">
-                    <span
-                      onClick={handleCastleClick}
-                      className="cursor-pointer hover:scale-125 transition-transform select-none"
-                    >🏰</span>
+                    <span>🏰</span>
                     <span>Spanish Arch & riverside walks</span>
                   </li>
                   <li className="flex gap-2">
-                    <span
-                      onClick={handleFerrisClick}
-                      className="cursor-pointer hover:scale-125 transition-transform select-none"
-                    >🎡</span>
+                    <span>🎡</span>
                     <span>South Park playground</span>
                   </li>
                 </ul>
@@ -475,10 +354,7 @@ export default function ConnemaraPage() {
             July 20th, maybe with one last stop along the way, to catch our flight home on the 21st.
           </p>
           <div className="flex items-center gap-3">
-            <span
-              onClick={handleHomeClick}
-              className="text-2xl cursor-pointer hover:scale-125 transition-transform select-none"
-            >🏠</span>
+            <span className="text-2xl">🏠</span>
             <span className="text-gray-300">
               Home to Seattle just in time for the family reunion on July 23rd!
             </span>

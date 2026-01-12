@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import ImageCard from '@/components/ImageCard';
 
@@ -63,111 +60,8 @@ const familyActivities = [
 ];
 
 export default function BarcelonaPage() {
-  const [pageEffect, setPageEffect] = useState<string | null>(null);
-  const [floatingEmojis, setFloatingEmojis] = useState<string[]>([]);
-  const [showCapybara, setShowCapybara] = useState(false);
-  const [showDancing, setShowDancing] = useState(false);
-  const [rainbowMode, setRainbowMode] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
-
-  const triggerFloatingEmojis = (emoji: string, count: number = 20) => {
-    setFloatingEmojis(Array(count).fill(emoji));
-    setTimeout(() => setFloatingEmojis([]), 3000);
-  };
-
-  const triggerPageWarp = (effect: string) => {
-    setPageEffect(effect);
-    setTimeout(() => setPageEffect(null), 2000);
-  };
-
-  const handleSunriseClick = () => triggerFloatingEmojis('🌅', 30);
-  const handlePaellaClick = () => { setShowDancing(true); setTimeout(() => setShowDancing(false), 4000); };
-  const handleMuseumClick = () => triggerPageWarp('spin');
-  const handleMoonClick = () => triggerPageWarp('invert');
-  const handleMoneyClick = () => { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); };
-  const handleGrandpaClick = () => { setShowCapybara(true); };
-  const handleSunClick = () => { setRainbowMode(true); setTimeout(() => setRainbowMode(false), 5000); };
-  const handleFoodClick = () => triggerFloatingEmojis('🍕', 40);
-
   return (
-    <div className={`${pageEffect === 'spin' ? 'animate-spin' : ''} ${pageEffect === 'invert' ? 'invert' : ''} ${rainbowMode ? 'animate-pulse hue-rotate-180' : ''} transition-all duration-500`}>
-      {/* Floating Emojis */}
-      {floatingEmojis.map((emoji, i) => (
-        <div
-          key={i}
-          className="fixed text-4xl pointer-events-none z-50 animate-bounce"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 0.5}s`,
-            animationDuration: `${1 + Math.random()}s`,
-          }}
-        >
-          {emoji}
-        </div>
-      ))}
-
-      {/* Confetti Money */}
-      {showConfetti && (
-        <>
-          {Array(50).fill('💰').map((_, i) => (
-            <div
-              key={i}
-              className="fixed text-3xl pointer-events-none z-50"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: '-50px',
-                animation: `fall ${2 + Math.random() * 2}s linear forwards`,
-              }}
-            >
-              💰
-            </div>
-          ))}
-          <style>{`
-            @keyframes fall {
-              to { transform: translateY(120vh) rotate(720deg); }
-            }
-          `}</style>
-        </>
-      )}
-
-      {/* Dancing Shrimp */}
-      {showDancing && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-          <div className="text-9xl animate-bounce" style={{ animation: 'wiggle 0.3s infinite' }}>🦐</div>
-          <style>{`
-            @keyframes wiggle {
-              0%, 100% { transform: rotate(-10deg) scale(1.5); }
-              50% { transform: rotate(10deg) scale(1.5); }
-            }
-          `}</style>
-        </div>
-      )}
-
-      {/* Capybara Popup */}
-      {showCapybara && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowCapybara(false)}>
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80"
-              alt="Surprise capybara!"
-              className="rounded-2xl max-w-md animate-bounce"
-              style={{ animation: 'pop 0.5s ease-out' }}
-            />
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-yellow-400 text-black font-bold px-6 py-2 rounded-full text-xl animate-pulse">
-              CAPYBARA SAYS HI!
-            </div>
-            <style>{`
-              @keyframes pop {
-                0% { transform: scale(0) rotate(-180deg); }
-                100% { transform: scale(1) rotate(0deg); }
-              }
-            `}</style>
-          </div>
-        </div>
-      )}
-
+    <div>
       <HeroSection
         title="Barcelona"
         subtitle="Two weeks of sun, sea, and family - staying with the grandparents"
@@ -317,34 +211,22 @@ export default function BarcelonaPage() {
           <h3 className="font-bold text-xl text-gray-900 mb-6">A typical day in Barcelona</h3>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div
-                onClick={handleSunriseClick}
-                className="text-3xl mb-2 cursor-pointer hover:scale-150 transition-transform select-none"
-              >🌅</div>
+              <div className="text-3xl mb-2">🌅</div>
               <div className="font-medium text-gray-900">Morning</div>
               <div className="text-sm text-gray-600">Beach or park with grandparents</div>
             </div>
             <div className="text-center">
-              <div
-                onClick={handlePaellaClick}
-                className="text-3xl mb-2 cursor-pointer hover:scale-150 transition-transform select-none"
-              >🥘</div>
+              <div className="text-3xl mb-2">🥘</div>
               <div className="font-medium text-gray-900">Midday</div>
               <div className="text-sm text-gray-600">Long Spanish lunch and siesta</div>
             </div>
             <div className="text-center">
-              <div
-                onClick={handleMuseumClick}
-                className="text-3xl mb-2 cursor-pointer hover:scale-150 transition-transform select-none"
-              >🏛️</div>
+              <div className="text-3xl mb-2">🏛️</div>
               <div className="font-medium text-gray-900">Afternoon</div>
               <div className="text-sm text-gray-600">Explore, gelato, and adventures</div>
             </div>
             <div className="text-center">
-              <div
-                onClick={handleMoonClick}
-                className="text-3xl mb-2 cursor-pointer hover:scale-150 transition-transform select-none"
-              >🌙</div>
+              <div className="text-3xl mb-2">🌙</div>
               <div className="font-medium text-gray-900">Evening</div>
               <div className="text-sm text-gray-600">Late tapas dinner with family</div>
             </div>
@@ -358,31 +240,19 @@ export default function BarcelonaPage() {
           </h3>
           <ul className="space-y-3 text-gray-600">
             <li className="flex gap-3">
-              <span
-                onClick={handleMoneyClick}
-                className="cursor-pointer hover:scale-150 transition-transform select-none"
-              >💰</span>
+              <span>💰</span>
               <span>Free lodging with family saves our budget for the Ireland cottages</span>
             </li>
             <li className="flex gap-3">
-              <span
-                onClick={handleGrandpaClick}
-                className="cursor-pointer hover:scale-150 transition-transform select-none"
-              >👴</span>
+              <span>👴</span>
               <span>Quality grandparent time the kids don&apos;t get often enough</span>
             </li>
             <li className="flex gap-3">
-              <span
-                onClick={handleSunClick}
-                className="cursor-pointer hover:scale-150 transition-transform select-none"
-              >☀️</span>
+              <span>☀️</span>
               <span>Mediterranean summer weather - reliable sun and warm beaches</span>
             </li>
             <li className="flex gap-3">
-              <span
-                onClick={handleFoodClick}
-                className="cursor-pointer hover:scale-150 transition-transform select-none"
-              >🍽️</span>
+              <span>🍽️</span>
               <span>Spanish meal timing works great with kids (late = more flexible!)</span>
             </li>
           </ul>
