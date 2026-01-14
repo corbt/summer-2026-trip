@@ -210,6 +210,61 @@ export default function Home() {
             </span>
           </div>
         </div>
+
+        {/* Paris Side Trip */}
+        <div className="mt-16">
+          <div className="text-center mb-8">
+            <span className="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-3">
+              Optional Add-On
+            </span>
+            <h3 className="text-2xl font-bold text-gray-900">Paris Getaway</h3>
+            <p className="text-gray-600 mt-2">A romantic 2-night escape while the kids stay with grandparents</p>
+          </div>
+          <Link
+            href="/paris"
+            className="group block bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+          >
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="relative h-64 md:h-auto">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/paris/eiffel-tower-sunset.jpg"
+                  alt="Eiffel Tower at sunset"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-8 flex flex-col justify-center">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="bg-rose-100 text-rose-700 text-sm px-3 py-1 rounded-full">
+                    2 Nights
+                  </span>
+                  <span className="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full">
+                    Couples Only
+                  </span>
+                  <span className="bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full">
+                    July 2-4
+                  </span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Train through the Pyrenees, explore Le Marais, catch the Eiffel Tower at sunset.
+                  Works with either itinerary during the Barcelona stay.
+                </p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-gray-500 text-sm">Estimated</span>
+                    <span className="text-rose-600 font-bold text-xl ml-2">~$1,150</span>
+                  </div>
+                  <span className="text-rose-600 group-hover:translate-x-2 transition-transform inline-flex items-center gap-2 font-medium">
+                    View Details
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Footer */}
